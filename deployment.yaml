@@ -1,19 +1,25 @@
-apiVersion: apps/v1 # Usa apps/v1beta2 para versiones anteriores a 1.9.0
+# This file configures the hello-world app which serves public web traffic.
+apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: nginx-deployment
+  name: helloworld-gke
 spec:
+  replicas: 1
   selector:
     matchLabels:
-      app: nginx
-  replicas: 2 # indica al controlador que ejecute 2 pods
+      app: hello
   template:
     metadata:
       labels:
-        app: nginx
+        app: hello
     spec:
       containers:
-      - name: nginx
-        image: nginx:1.7.9
+      - name: hello-app
+        # Replace $GCLOUD_PROJECT with your project ID
+        image: gcr.io/$GCLOUD_PROJECT/helloworld-gke:latest
+        # This app listens on port 8080 for web traffic by default.
         ports:
-        - containerPort: 80
+        - containerPort: 8080
+        env:
+          - name: PORT
+            value: "8080"
