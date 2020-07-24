@@ -1,25 +1,52 @@
-# This file configures the hello-world app which serves public web traffic.
-apiVersion: extensions/v1beta1
-kind: Deployment
+apiVersion: apps.openshift.io/v1
+kind: DeploymentConfig
 metadata:
-  name: helloworld-gke
+  annotations:
+  labels:
+    app: jenkins
 spec:
   replicas: 1
   selector:
-    matchLabels:
-      app: hello
+    app: jenkins
+    deploymentconfig: jenkins
+  strategy:
+    activeDeadlineSeconds: 21600
+    resources: {}
+    rollingParams:
+      intervalSeconds: 1
+      maxSurge: 25%
+      maxUnavailable: 25%
+      timeoutSeconds: 600
+      updatePeriodSeconds: 1
+    type: Rolling
   template:
     metadata:
       labels:
-        app: hello
+        app: jenkins
+        deploymentconfig: jenkins
     spec:
       containers:
-      - name: hello-app
-        # Replace $GCLOUD_PROJECT with your project ID
-        image: jenkins
-        # This app listens on port 8080 for web traffic by default.
-        ports:
-        - containerPort: 8080
-        env:
-          - name: PORT
-            value: "8080"
+        - image: >-
+            jenkins
+          imagePullPolicy: Always
+          name: jenkins
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+            - containerPort: 50000
+              protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+            - mountPath: /var/jenkins_home
+              name: volume-hew08
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+      volumes:
+        - name: volume-hew08
+          persistentVolumeClaim:
+            claimName: jenkins
