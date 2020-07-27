@@ -1,7 +1,6 @@
 apiVersion: apps.openshift.io/v1
 kind: DeploymentConfig
 metadata:
-  generation: 5
   labels:
     app: grafana
   name: grafana
@@ -9,8 +8,6 @@ spec:
   replicas: 1
   selector:
     app: grafana
-    deploymentconfig: grafana
-    type: Rolling
     spec:
       containers:
         - image: grafan/grafana
