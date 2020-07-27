@@ -21,6 +21,9 @@ spec:
     type: Rolling
   template:
     metadata:
+      labels:
+        app: nodejs-ex1
+        deploymentconfig: nodejs-ex1
     spec:
       containers:
         - image: >-
