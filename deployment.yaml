@@ -48,5 +48,4 @@ spec:
         from:
           kind: ImageStreamTag
           name: 'nodejs-ex:latest'
-          namespace: deployments
       type: ImageChange
