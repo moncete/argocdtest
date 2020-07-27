@@ -1,19 +1,19 @@
 apiVersion: apps/v1 # Usa apps/v1beta2 para versiones anteriores a 1.9.0
 kind: Deployment
 metadata:
-  name: nginx-deployment
+  name: grafana
 spec:
   selector:
     matchLabels:
-      app: nginx
-  replicas: 4 # indica al controlador que ejecute 2 pods
+      app: grafana
+  replicas: 1 # indica al controlador que ejecute 2 pods
   template:
     metadata:
       labels:
-        app: nginx
+        app: grafana
     spec:
       containers:
-      - name: nginx
-        image: nginx:latest
+      - name: grafana
+        image: grafana/grafana
         ports:
-        - containerPort: 8080
+        - containerPort: 3000
