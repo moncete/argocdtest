@@ -1,36 +1,36 @@
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: apps.openshift.io/v1
+kind: DeploymentConfig
 metadata:
+  generation: 5
+  labels:
+    app: grafana
   name: grafana
 spec:
   replicas: 1
   selector:
-    matchLabels:
-      app: grafana
-  template:
-    metadata:
-      name: grafana
-      labels:
-        app: grafana
+    app: grafana
+    deploymentconfig: grafana
+    type: Rolling
     spec:
-      securityContext: {}
       containers:
-      - name: grafana
-        image: grafana/grafana
-        ports:
-        - name: grafana
-          containerPort: 3000
-        resources:
-          limits:
-            memory: "1Gi"
-            cpu: "500m"
-          requests:
-            memory: "500Mi"
-            cpu: "100m"
-        volumeMounts:
-          - mountPath: /var/lib/grafana
-            name: grafana-storage
+        - image: grafan/grafana
+          imagePullPolicy: Always
+          name: grafana
+          ports:
+            - containerPort: 3000
+              protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+            - mountPath: /var/lib/grafana
+              name: volume-disk
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
       volumes:
-        - name: grafana-storage
+        - name: volume-disk
           persistentVolumeClaim:
-              claimName: grafana
+            claimName: grafana
