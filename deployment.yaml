@@ -1,52 +1,19 @@
-apiVersion: apps.openshift.io/v1
-kind: DeploymentConfig
+apiVersion: apps/v1 # Usa apps/v1beta2 para versiones anteriores a 1.9.0
+kind: Deployment
 metadata:
-  annotations:
-  labels:
-    app: jenkins
+  name: nginx-deployment
 spec:
-  replicas: 1
   selector:
-    app: jenkins
-    deploymentconfig: jenkins
-  strategy:
-    activeDeadlineSeconds: 21600
-    resources: {}
-    rollingParams:
-      intervalSeconds: 1
-      maxSurge: 25%
-      maxUnavailable: 25%
-      timeoutSeconds: 600
-      updatePeriodSeconds: 1
-    type: Rolling
+    matchLabels:
+      app: nginx
+  replicas: 2
   template:
     metadata:
       labels:
-        app: jenkins
-        deploymentconfig: jenkins
+        app: nginx
     spec:
       containers:
-        - image: >-
-            jenkins
-          imagePullPolicy: Always
-          name: jenkins
-          ports:
-            - containerPort: 8080
-              protocol: TCP
-            - containerPort: 50000
-              protocol: TCP
-          resources: {}
-          terminationMessagePath: /dev/termination-log
-          terminationMessagePolicy: File
-          volumeMounts:
-            - mountPath: /var/jenkins_home
-              name: volume-hew08
-      dnsPolicy: ClusterFirst
-      restartPolicy: Always
-      schedulerName: default-scheduler
-      securityContext: {}
-      terminationGracePeriodSeconds: 30
-      volumes:
-        - name: volume-hew08
-          persistentVolumeClaim:
-            claimName: jenkins
+      - name: nginx
+        image: nginx:1.8 # Actualiza la versión de nginx de 1.7.9 a 1.8
+        ports:
+        - containerPort: 80
