@@ -28,7 +28,8 @@ spec:
       dnsPolicy: ClusterFirst
       restartPolicy: Always
       schedulerName: default-scheduler
-      securityContext: {}
+      securityContext:
+        runAsUser: 1000
       terminationGracePeriodSeconds: 30
       volumes:
         - name: volume-disk
