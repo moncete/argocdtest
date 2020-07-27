@@ -1,54 +1,19 @@
-apiVersion: apps.openshift.io/v1
-kind: DeploymentConfig
+apiVersion: apps/v1 # Usa apps/v1beta2 para versiones anteriores a 1.9.0
+kind: Deployment
 metadata:
-  labels:
-    app: nodejs-ex1
-  name: nodejs-ex1
+  name: nginx-deployment
 spec:
-  replicas: 1
   selector:
-    app: nodejs-ex1
-    deploymentconfig: nodejs-ex1
-  strategy:
-    activeDeadlineSeconds: 21600
-    resources: {}
-    rollingParams:
-      intervalSeconds: 1
-      maxSurge: 25%
-      maxUnavailable: 25%
-      timeoutSeconds: 600
-      updatePeriodSeconds: 1
-    type: Rolling
+    matchLabels:
+      app: nginx
+  replicas: 2 # indica al controlador que ejecute 2 pods
   template:
     metadata:
       labels:
-        app: nodejs-ex1
-        deploymentconfig: nodejs-ex1
+        app: nginx
     spec:
       containers:
-        - image: >-
-            172.30.1.1:5000/deployments/nodejs-ex:latest
-          imagePullPolicy: Always
-          name: nodejs-ex1
-          ports:
-            - containerPort: 8080
-              protocol: TCP
-          resources: {}
-          terminationMessagePath: /dev/termination-log
-          terminationMessagePolicy: File
-      dnsPolicy: ClusterFirst
-      restartPolicy: Always
-      schedulerName: default-scheduler
-      securityContext: {}
-      terminationGracePeriodSeconds: 30
-  test: false
-  triggers:
-    - type: ConfigChange
-    - imageChangeParams:
-        automatic: true
-        containerNames:
-          - nodejs-ex1
-        from:
-          kind: ImageStreamTag
-          name: '172.30.1.1:5000/deployments/nodejs-ex:latest'
-      type: ImageChange
+      - name: nginx
+        image: nginx:1.7.9
+        ports:
+        - containerPort: 8080
