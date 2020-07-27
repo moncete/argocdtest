@@ -17,3 +17,7 @@ spec:
         image: grafana/grafana
         ports:
         - containerPort: 3000
+      volumes:
+        - name: grafana-disk
+          persistentVolumeClaim:
+            claimName: grafana
