@@ -6,8 +6,6 @@ metadata:
   name: grafana
 spec:
   replicas: 1
-  selector:
-    app: grafana
     spec:
       containers:
         - image: grafan/grafana
