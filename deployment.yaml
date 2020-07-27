@@ -20,6 +20,7 @@ spec:
         ports:
         - name: grafana
           containerPort: 3000
+        user: "472"
         resources:
           limits:
             memory: "1Gi"
