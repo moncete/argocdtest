@@ -1,0 +1,13 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: grafana
+spec:
+  host: grafana-apps.192.168.99.119.nip.io
+  port:
+    targetPort: grafana-port
+  to:
+    kind: Service
+    name: grafana
+    weight: 100
+  wildcardPolicy: None
