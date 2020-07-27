@@ -4,7 +4,6 @@ metadata:
   labels:
     app: nodejs-ex1
   name: nodejs-ex1
-  namespace: deployments
 spec:
   replicas: 1
   selector:
