@@ -1,32 +1,19 @@
-apiVersion: apps.openshift.io/v1
-kind: DeploymentConfig
+apiVersion: apps/v1 # Usa apps/v1beta2 para versiones anteriores a 1.9.0
+kind: Deployment
 metadata:
-  labels:
-    app: grafana
   name: grafana
 spec:
-  replicas: 1
+  selector:
+    matchLabels:
+      app: grafana
+  replicas: 1 # indica al controlador que ejecute 2 pods
+  template:
+    metadata:
+      labels:
+        app: grafana
     spec:
       containers:
-        - image: grafan/grafana
-          imagePullPolicy: Always
-          name: grafana
-          ports:
-            - containerPort: 3000
-              protocol: TCP
-          resources: {}
-          terminationMessagePath: /dev/termination-log
-          terminationMessagePolicy: File
-          volumeMounts:
-            - mountPath: /var/lib/grafana
-              name: volume-disk
-      dnsPolicy: ClusterFirst
-      restartPolicy: Always
-      schedulerName: default-scheduler
-      securityContext:
-        runAsUser: 1000
-      terminationGracePeriodSeconds: 30
-      volumes:
-        - name: volume-disk
-          persistentVolumeClaim:
-            claimName: grafana
+      - name: grafana
+        image: grafana/grafana
+        ports:
+        - containerPort: 3000
