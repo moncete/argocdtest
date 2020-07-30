@@ -20,7 +20,8 @@ spec:
         volumeMounts:
         - name: grafana-disk
           mountPath: /var/lib/grafana
-      - name: grafana-disk
+      volumes:
+      - name: minio-volume
         persistentVolumeClaim:
-          claimName: grafana
+          claimName: minio-claim
       
