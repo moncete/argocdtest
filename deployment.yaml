@@ -17,3 +17,10 @@ spec:
         image: grafana/grafana
         ports:
         - containerPort: 3000
+        volumeMounts:
+        - name: grafana-disk
+          mountPath: /var/lib/grafana
+      - name: grafana-disk
+        persistentVolumeClaim:
+          claimName: grafana
+      
