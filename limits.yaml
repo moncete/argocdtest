@@ -1,4 +1,4 @@
-apiVersion: apps/v1
+apiVersion: v1
 kind: Deployment
 metadata:
   name: grafana
@@ -8,5 +8,7 @@ spec:
       containers:
       - name: grafana
         resources:
-        limits:
-          memory: 512Mi
+          limits:
+            memory: 512Mi
+          requests:
+            memory: 256Mi
