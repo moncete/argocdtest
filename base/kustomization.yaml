@@ -6,7 +6,3 @@ resources:
   - route.yaml
   - deployment.yaml
   - service.yaml
-
-#patchesStrategicMerge:
-#  - limits.yaml
-#  - healthcheck.yaml
