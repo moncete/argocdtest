@@ -2,11 +2,8 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 resources:
-  - pvc.yaml
-  - route.yaml
-  - deployment.yaml
-  - service.yaml
-
+  - ../../base
+  
 patchesStrategicMerge:
   - limits.yaml
   - healthcheck.yaml
