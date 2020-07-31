@@ -6,4 +6,4 @@ resources:
   - route.yaml
   - deployment.yaml
   - service.yaml
-  - resources.yaml
+  - limits.yaml
