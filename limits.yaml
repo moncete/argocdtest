@@ -3,6 +3,8 @@ kind: Deployment
 metadata:
   name: grafana
 spec:
+  selector:
+    app: grafana
   template:
     spec:
       containers:
