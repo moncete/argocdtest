@@ -20,8 +20,8 @@ spec:
         volumeMounts:
         - name: grafana-disk
           mountPath: /var/lib/grafana
-      securityContext:
-        runAsUser: 1000140000
+      #securityContext:
+        #runAsUser: 1000140000
       volumes:
       - name: grafana-disk
         persistentVolumeClaim:
