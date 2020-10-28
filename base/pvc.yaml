@@ -10,4 +10,4 @@ spec:
  resources:
   requests:
    storage: "5Gi"
- volumeName: pv0017
+ #volumeName: pv0017
