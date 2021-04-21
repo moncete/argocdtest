@@ -22,7 +22,7 @@ spec:
           mountPath: /var/lib/grafana
       #securityContext:
         #runAsUser: 1000140000
-      volumes:
-      - name: grafana-disk
-        persistentVolumeClaim:
-          claimName: grafana
+      #volumes:
+      #- name: grafana-disk
+      #  persistentVolumeClaim:
+      #    claimName: grafana
