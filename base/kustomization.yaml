@@ -3,6 +3,6 @@ kind: Kustomization
 
 resources:
   - pvc.yaml
-  - route.yaml
+  #- route.yaml
   - deployment.yaml
   - service.yaml
