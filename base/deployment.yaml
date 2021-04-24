@@ -17,12 +17,12 @@ spec:
         image: grafana/grafana
         ports:
         - containerPort: 3000
-        #volumeMounts:
-        #- name: grafana-disk
-         # mountPath: /var/lib/grafana
+        volumeMounts:
+        - name: grafana-disk
+          mountPath: /var/lib/grafana
       #securityContext:
         #runAsUser: 1000140000
-      #volumes:
-      #- name: grafana-disk
-      #  persistentVolumeClaim:
-      #    claimName: grafana
+      volumes:
+      - name: grafana-disk
+        persistentVolumeClaim:
+          claimName: grafana
